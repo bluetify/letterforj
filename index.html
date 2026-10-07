@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>-</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      font-family: 'Inter', sans-serif;
+      /* Ganti URL gambar di bawah ini dengan file gambar latar belakang hutan kamu */
+      background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4)), 
+                  url('dist/images/moon.jpeg') center/cover no-repeat;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .card {
+      background-color: rgba(22, 20, 18, 0.92);
+      backdrop-filter: blur(8px);
+      width: 100%;
+      max-width: 600px;
+      border-radius: 12px;
+      padding: 28px 24px;
+      color: #e6e1da;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      position: relative;
+      z-index: 1;
+    }
+
+    .category {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #a39c93;
+      margin-bottom: 12px;
+    }
+
+    .title {
+      font-size: 1.65rem;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #ffffff;
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    .meta-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      margin-bottom: 24px;
+    }
+
+    .author-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .author-details {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .author-name {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: #ffffff;
+    }
+
+    .publish-date {
+      font-size: 0.7rem;
+      color: #a39c93;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .listen-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background-color: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .listen-btn:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .content {
+      font-family: 'Lora', serif;
+      font-size: 0.98rem;
+      line-height: 1.6;
+      color: #dcd6cd;
+    }
+
+    .content p {
+      margin-bottom: 18px;
+    }
+
+    .content p:last-child {
+      margin-bottom: 0;
+    }
+
+    .hands {
+        max-width: 250px;
+        padding-bottom: 16px;
+        display: flex;
+        justify-content: center;
+        margin: 0 auto;
+    }
+
+    /* Styling untuk gambar Bunga Floating */
+    .floating-flower {
+      position: fixed;
+      bottom: -10px;
+      right: -10px;
+      width: 160px; /* Atur ukuran lebar bunga sesuai keinginan */
+      height: auto;
+      z-index: 10;
+      pointer-events: none; /* Supaya tidak menghalangi klik di sekitarnya */
+      filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.4));
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .reaction-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      padding-top: 30px;
+    }
+
+    .reaction-btn {
+      flex: 1;
+      background: rgba(22, 20, 18, 0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      padding: 10px 8px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .reaction-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .reaction-btn span {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #dcd6cd;
+    }
+
+    .reply-section {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .comments-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
+      max-height: 150px;
+      overflow-y: auto;
+    }
+
+    .comment-item {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      color: #dcd6cd;
+      line-height: 1.4;
+    }
+
+    .comment-note {
+      font-size: 0.7rem;
+      color: #8c857b;
+      margin-bottom: 8px;
+    }
+
+    .input-box {
+      display: flex;
+      gap: 8px;
+    }
+
+    .input-box input {
+      flex: 1;
+      background: #ffffff;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 12px;
+      font-size: 0.85rem;
+      color: #000;
+      outline: none;
+    }
+
+    .send-btn {
+      background: #ffffff;
+      color: #000;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    /* Animasi melayang (floating effect) */
+    @keyframes float {
+      0% {
+        transform: translateY(0px) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-12px) rotate(1.5deg);
+      }
+      100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+    }
+
+    /* Penyesuaian ukuran pada layar HP */
+    @media (max-width: 600px) {
+      .floating-flower {
+        width: 100px;
+      }
+
+      body {
+        background-repeat: no-repeat;
+        background-size: cover;          /* Scales image to fill the container */
+        background-attachment: fixed; 
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="category">-bluetify-</div>
+    
+    <h1 class="title">My deepest apology</h1>
+    
+    <div class="meta-container">
+      <div class="author-info">
+        <!-- <img class="avatar" src="url('dist/images/hb.jpg')" alt="Author"> -->
+        <div class="author-details">
+          <span class="author-name">BEFORE YOU GO</span>
+           <!-- <iframe
+            width="100%"
+            height="80"
+            src="https://www.youtube.com/embed/QyN7J1eB1fU&si=He5xVgmfo5e7xvZy?autoplay=1"
+            title="Music Player"
+            frameborder="0"
+            allow="autoplay; encrypted-media">
+            </iframe> -->
+          <!-- <span class="publish-date">3 AUG 2026 AT 2:05 PM</span> -->
+        </div>
+      </div>
+      
+      <!-- <button class="listen-btn"> -->
+        <!-- <svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor">
+          <path d="M0 0L10 6L0 12V0Z"/>
+        </svg>
+        Listen -->
+    </div>
+    
+
+    <div class="content">
+      <!-- <p>I belong to the tapered end of the generation of Indian youth that was told, very clearly, that a good life had two main entrances: engineering and medicine.</p>
+      <p>Everything else was scenery.</p>
+      <p>Around me, it was engineers and doctors who seemed to be earning more than I could imagine, getting jobs abroad, and moving ahead in life faster than everybody else. By the time I was in 10th grade, however, I had already decided that I wanted to study literature.</p>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse mollitia dolore libero at ipsum. Vero optio architecto dicta exercitationem ut sapiente hic! Tempore, et inventore eaque libero saepe, quas distinctio provident repudiandae nesciunt quo maxime? Nemo labore, ab, maxime reprehenderit iusto omnis placeat, accusamus eaque molestiae architecto est cum voluptatum similique! Neque nisi aliquam consequuntur autem possimus provident rem, et expedita officia delectus dolorum aliquid, deserunt vero nam. Facere, cupiditate ut. Officiis recusandae quidem libero fuga quo odio inventore quos, culpa ex nulla enim quod soluta, cupiditate laboriosam dolor omnis consequatur consequuntur quam dicta alias. Quas deserunt cupiditate delectus nulla vitae quasi ullam? Laboriosam, ut? Dicta, aspernatur veritatis recusandae saepe possimus vitae vero quia tempore libero. Voluptatum fuga amet, libero minus quae, porro laborum reprehenderit accusamus recusandae deleniti, illo ad iure neque? Alias officia porro minus rem quis ullam! Nostrum beatae ducimus harum natus recusandae possimus perferendis optio vitae laudantium nobis delectus saepe reiciendis, porro nihil soluta sit commodi culpa impedit adipisci amet, cupiditate repellendus veritatis? Quasi odit qui veniam rerum eligendi, praesentium animi, doloribus sint laboriosam, voluptate dignissimos aut facere tempora assumenda earum vel nostrum vero voluptatem. Officiis placeat sed officia impedit. Quisquam magnam assumenda est porro nobis quia!</p> -->
+      <p>I’m sorry for the things I did that made your heart feel heavy, for the moments I could have handled better, and for the hurt I never meant to cause.</p>
+
+      <img src="{{ asset ('dist/images/hands.jpeg') }}" alt="#" class="hands">
+
+      <p>Truthfully, my heart hurts too, and I don’t really know what I’m supposed to do right now.</p>
+
+      <img src="{{ asset ('dist/images/heart.jpeg') }}" alt="#" class="hands">
+
+      <p>I’ve realized that without you, things just feel different. The days feel a little quieter, and somehow, something feels missing.</p>
+
+      <img src="{{ asset ('dist/images/quietly.jpeg') }}" alt="#" class="hands">
+
+      <p>I may not be able to undo the past, but I hope you know that I truly apologize.</p>
+
+      <p>I’m sorry, from the quietest and most honest part of me.</p>
+
+      <img src="{{ asset ('dist/images/sorry.jpg') }}" alt="#" class="hands">
+
+    </div>
+
+    <div class="reaction-section">
+      <button class="reaction-btn" onclick="toggleReaction('smile')">
+        😊 <span id="smile-count">0</span>
+      </button>
+      <button class="reaction-btn" onclick="toggleReaction('crying')">
+        😭 <span id="crying-count">0</span>
+      </button>
+      <button class="reaction-btn" onclick="toggleReaction('angry')">
+        😡 <span id="angry-count">0</span>
+      </button>
+      <button class="reaction-btn" onclick="toggleReaction('disappointed')">
+        😞 <span id="disappointed-count">0</span>
+      </button>
+      <button class="reaction-btn" onclick="toggleReaction('bomb')">
+        💣 <span id="bomb-count">0</span>
+      </button>
+    </div>
+
+    <div class="reply-section">
+        <div class="comments-list" id="comments-list">
+          <!-- Komentar tersimpan akan tampil di sini -->
+        </div>
+        <!-- <div class="comment-note">Hanya terlihat di browser ini (tidak disimpan permanen).</div> -->
+        <div class="input-box">
+          <input type="text" id="reply-input" placeholder="Would you reply please">
+          <button class="send-btn" onclick="addReply()">Send</button>
+        </div>
+      </div>
+  </div>
+
+  <!-- Gambar Bunga Floating di Pojok Kanan Bawah -->
+  <!-- Ganti src dengan lokasi file gambar bunga PNG kamu (pastikan background transparan) -->
+  <img src="{{ asset ('dist/images/hb.png') }}" alt="Flower Decoration" class="floating-flower">
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+  <script>
+    // Logika Penyimpanan Reaction di localStorage
+    let reactions = JSON.parse(localStorage.getItem('my_reactions')) || { 
+      smile: 0, 
+      crying: 0, 
+      angry: 0, 
+      disappointed: 0, 
+      bomb: 0 
+    };
+
+    function updateReactionUI() {
+      document.getElementById('smile-count').innerText = reactions.smile || 0;
+      document.getElementById('crying-count').innerText = reactions.crying || 0;
+      document.getElementById('angry-count').innerText = reactions.angry || 0;
+      document.getElementById('disappointed-count').innerText = reactions.disappointed || 0;
+      document.getElementById('bomb-count').innerText = reactions.bomb || 0;
+    }
+
+    function toggleReaction(type) {
+      reactions[type] = (reactions[type] || 0) + 1;
+      localStorage.setItem('my_reactions', JSON.stringify(reactions));
+      updateReactionUI();
+    }
+
+    // Load angka saat pertama kali halaman dibuka
+    updateReactionUI();
+
+
+    let replies = JSON.parse(localStorage.getItem('article_replies')) || [];
+
+    function renderReplies() {
+      const listContainer = document.getElementById('comments-list');
+      listContainer.innerHTML = '';
+      
+      replies.forEach(text => {
+        const item = document.createElement('div');
+        item.className = 'comment-item';
+        item.innerText = text;
+        listContainer.appendChild(item);
+      });
+    }
+
+    function addReply() {
+      const input = document.getElementById('reply-input');
+      const text = input.value.trim();
+
+      if (text !== '') {
+        replies.push(text);
+        localStorage.setItem('article_replies', JSON.stringify(replies));
+        input.value = '';
+        renderReplies();
+      }
+    }
+
+    // Tampilkan balasan saat pertama dibuka
+    renderReplies();
+  </script>
+
+</body>
+</html>
